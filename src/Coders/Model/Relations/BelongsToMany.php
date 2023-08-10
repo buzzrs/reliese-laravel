@@ -88,6 +88,9 @@ class BelongsToMany implements Relation
         if ($this->parent->usesSnakeAttributes()) {
             return Str::snake($tableName);
         }
+        if ($this->needsPivotTable()) {
+            return Str::camel($tableName).'By'.$this->pivot->getClassName();
+        }
 
         return Str::camel($tableName);
     }
